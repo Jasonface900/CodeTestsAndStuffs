@@ -1,18 +1,13 @@
-#Compiled source files
-
+# Compiled source files
 *.dll
 *.exe
 *.o
 *.so
 
-
-#Logfiles
-
+# Logfiles
 *.log
 
-
-#OS files
-
+# OS files
 .DS_Store
 .DS_Store?
 ._*
@@ -20,3 +15,20 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+
+# Auto-generated tag files
+tags
