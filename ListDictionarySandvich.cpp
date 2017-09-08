@@ -5,8 +5,9 @@
 
 int main(){
 	std::map<int, std::pair<int, std::string> > mpair;
-	std::cout << "
+	std::cout << "Creating MapList... using <int, pair<int, string> > named 'mpair'"; 
 	std::map<int, std::pair<int, std::string> >::iterator mpairIt;
+	std::cout << "Creating iterator...";
 	int x = 1;
 
 	mpair[0] = std::make_pair(1, "insertStuffHere");
