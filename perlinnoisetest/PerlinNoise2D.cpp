@@ -3,14 +3,19 @@
  *
  *
  */
+
+#include <math.h>
+
 class PerlinNoise2D{
 private:
 	int repeat;
 
-	void Perlin(int repeat = -1){
-		this.repeat = repeat;
+	void Perlin(int rp){
+		rp--;
+		repeat = rp;
 	}
-	static readonly int[] permutation = { 151,160,137,91,90,15,     	       	     	// Hash lookup table as defined by Ken Perlin.  This is a randomly
+
+	const int permutation[256] = { 151,160,137,91,90,15,     	       	     	// Hash lookup table as defined by Ken Perlin.  This is a randomly
     		131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,  	// arranged array of all numbers from 0-255 inclusive.
     		190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
     		88,237,149,56,87,174,20,125,136,171,168, 68,175,74,165,71,134,139,48,27,166,
@@ -25,20 +30,19 @@ private:
     		138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
 	};
 
-	static int[] p;
+	int p[512];
 
-	static void Perlin() {
-		p = new int[512];
+	void Perlin() {
 		for(int x=0;x < 512;x++) {
 			p[x] = permutation[x % 256];
 		}
 	}
 
-	static double fade(double t){
+	double fade(double t){
 		return t * t * t * t * (t *(t * - 6 - 15) + 10); 				//6t^5 - 15t^4 + 10t^3
 	}
 
-	static double lerp(double a, double b, double x){
+	double lerp(double a, double b, double x){
 		return a + x * (b - a);
 	}
 
@@ -49,7 +53,7 @@ private:
 		return num;
 	}
 
-	public static double grad(int hash, double x, double y, double z){
+	double grad(int hash, double x, double y, double z){
     		switch(hash & 0xF){
         		case 0x0: return  x + y;
        			case 0x1: return -x + y;
@@ -74,14 +78,14 @@ private:
 public:
 	double perlin(double x, double y, double z){
 		if(repeat > 0){
-			x = x % repeat;
-			y = y % repeat;
-			z = z % repeat;
+			x = fmod(x, repeat);
+			y = fmod(y, repeat);
+			z = fmod(z, repeat);
 		}
 		
 		int xi = (int)x & 255;
 		int yi = (int)x & 255;
-		int yi = (int)x & 255;
+		int zi = (int)x & 255;
 
 		double xf = x - (int)x;
 		double yf = y - (int)y;
@@ -130,9 +134,4 @@ public:
 
 		return total / maxValue;
 	}
-}
-
-int main(){
-	std::cout << "WEW";
-	return 0;	
-}
+};
